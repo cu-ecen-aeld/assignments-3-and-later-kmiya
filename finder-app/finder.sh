@@ -1,5 +1,5 @@
-#!/bin/env bash
-set -euo pipefail
+#!/bin/sh
+set -eu
 
 if [ ! $# -eq 2 ]; then
     echo "Usage: $0 files_dir search_str" >&2
