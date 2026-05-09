@@ -1,12 +1,20 @@
-.PHONY: all test clean
+TARGET = writer
+SRCS = writer.c
+OBJS = $(SRCS:.c=.o)
 
-all: writer
+CC ?= $(TARGET_CC)
+CFLAGS ?= $(TARGET_CFLAGS)
+LDFLAGS ?= $(TARGET_LDFLAGS)
 
-test: writer
-	./finder-test.sh
+all: $(TARGET)
 
-writer: writer.c
-	$(CROSS_COMPILE)gcc -Wall -Wextra -pedantic -O3 "$@".c -o "$@"
+$(TARGET): $(OBJS)
+	$(CC) $(OBJS) -o $@ $(LDFLAGS)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f writer
+	rm -f $(TARGET) $(OBJS)
+
+.PHONY: all clean
